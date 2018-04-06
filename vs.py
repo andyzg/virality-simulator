@@ -9,7 +9,6 @@ def main():
     nodes = util.define_nodes(g)
     edges = util.define_affinity(g)
     print(util.mutual_friends(g, 1, 2))
-
     print(nodes, edges)
 
 
