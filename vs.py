@@ -13,17 +13,17 @@ def main():
     g = nx.barabasi_albert_graph(NODE_COUNT, M_PARAM, 5)
     nodes = util.define_nodes(g)
     edges = util.define_affinity(g)
-    sn = SocialNetwork(g, nodes, edges)
-    bar = defaultdict(int)
-    for i in range(0, 1000):
-        bar[share_content(sn)] += 1
-    render.draw_bar(bar)
+    # sn = SocialNetwork(g, nodes, edges)
+    # bar = defaultdict(int)
+    # for i in range(0, 500):
+    #     bar[share_content(sn)] += 1
+    # render.draw_bar(bar)
 
 
 def share_content(sn):
     nodes = util.get_popular_nodes(sn)
     content = Content()
-    sn.nodes[nodes[-1]].seed_content(content)
+    sn.nodes[nodes[0]].seed_content(content)
 
     timestep = 1
     count = 0
@@ -46,7 +46,7 @@ def share_content(sn):
         timestep += 1
         # print("\n")
 
-    print(count, " / ", NODE_COUNT)
+    print(count, " / ", NODE_COUNT, timestep)
     return count
 
 
