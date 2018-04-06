@@ -1,3 +1,4 @@
+from constants import *
 from node import Node
 from edge import Edge
 
@@ -5,7 +6,8 @@ from edge import Edge
 def define_nodes(g):
     nodes = {}
     for i in g:
-        nodes[i] = Node(i)
+        neighbors = [n for n in g.neighbors(i)]
+        nodes[i] = Node(i, neighbors)
 
     return nodes
 
@@ -32,11 +34,32 @@ def define_affinity(g):
         # Create edges
         for f in friends:
             edges[(i, f)] = Edge(scores[f])
-            print((i, f), scores[f])
 
     return edges
 
+
 def mutual_friends(g, n1, n2):
+    """Gets the number of mutual friends between two nodes."""
     nb1 = g.neighbors(n1)
     nb2 = g.neighbors(n2)
     return len(set([i for i in nb1]).intersection([i for i in nb2]))
+
+
+def probability_share_content(sn, n1, c):
+    edge_scores = []
+    for n in sn.nodes[n1.node_id].neighbors:
+        node = sn.nodes[n]
+        edge = sn.edges[(n1.node_id, n)]
+        # Preferential attachment
+        if c.uuid in node.content or n in c.shared_by:
+            edge_scores.append(edge.rank_score)
+    distance = n1.interest.distance(c.interest)
+    if len(edge_scores) == 0:
+        return 0
+    prob = max(edge_scores) * distance
+    return (1 - (1 - prob) ** (1.0 / TIMESTEPS_TILL_DEAD)) ** 2
+
+
+def get_popular_nodes(sn):
+    # Order nodes by their number of neighbors
+    return list(map(lambda x: x.node_id, sorted(sn.nodes.values())))

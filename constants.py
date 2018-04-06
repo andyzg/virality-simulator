@@ -6,4 +6,10 @@ DRAW_PROPERTIES = {
     'font_color': '#ffffff'
 }
 
-VECTOR_SIZE = 5
+VECTOR_SIZE = 3
+
+TIMESTEPS_TILL_DEAD = 1
+START_SCORE = 30
+
+NODE_COUNT = 200
+M_PARAM = 3
