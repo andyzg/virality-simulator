@@ -1,3 +1,4 @@
+import networkx as nx
 from constants import *
 import matplotlib.pyplot as plt
 
@@ -18,7 +19,7 @@ def draw_bar(bar):
         height.append(bar[i])
     plt.bar(x, height)
     plt.xlabel('Number of shares')
-    plt.xlim([0, NODE_COUNT])
+    plt.xlim([-10, NODE_COUNT + 10])
     plt.title('Shares for each content seeded')
     plt.ylabel('Simulation count')
 

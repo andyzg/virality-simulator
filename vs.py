@@ -3,6 +3,7 @@ import sys
 from socialnetwork import SocialNetwork
 from content import Content
 
+import math
 from collections import defaultdict
 import random
 from constants import *
@@ -17,7 +18,7 @@ def main(pop=1, nonpop=0):
     sn = SocialNetwork(g, nodes, edges)
     bar = defaultdict(int)
     impressions = defaultdict(int)
-    for i in range(0, 500):
+    for i in range(0, 100):
         num_share, imp = share_content(sn, pop, nonpop)
         bar[num_share] += 1
         impressions[round(imp * 100)] += 1
@@ -34,8 +35,10 @@ def share_content(sn, popular, nonpopular):
     for i in range(0, popular):
         sn.nodes[nodes[-1-i]].seed_content(content)
 
+    sn.nodes[math.floor(random.random() * len(nodes))].seed_content(content)
+
     timestep = 1
-    count = popular + nonpopular
+    count = popular + nonpopular + 1
     while not content.is_dead:
         probs = {}
         # Get probability for sharing
