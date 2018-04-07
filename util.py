@@ -1,6 +1,7 @@
 from constants import *
 from node import Node
 from edge import Edge
+import math
 
 
 def define_nodes(g):
@@ -56,8 +57,10 @@ def probability_share_content(sn, n1, c):
     distance = n1.interest.distance(c.interest)
     if len(edge_scores) == 0:
         return 0
-    prob = max(edge_scores) * distance
-    return (1 - (1 - prob) ** (1.0 / TIMESTEPS_TILL_DEAD)) ** 2
+
+    n1.impression(c)
+    prob = (1 - math.exp(-1 * sum(edge_scores))) * distance  # converge towards 1
+    return (1 - (1 - prob) ** (1.0 / TIMESTEPS_TILL_DEAD))
 
 
 def get_popular_nodes(sn):

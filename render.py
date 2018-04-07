@@ -9,10 +9,30 @@ def draw_graph(g):
 
 
 def draw_bar(bar):
+    a = plt.plot([1,2,1])
+    plt.subplot(121)
     x = []
     height = []
     for i in bar:
         x.append(i)
         height.append(bar[i])
     plt.bar(x, height)
+    plt.xlabel('Number of shares')
+    plt.xlim([0, NODE_COUNT])
+    plt.title('Shares for each content seeded')
+    plt.ylabel('Simulation count')
+
+
+def draw_impressions(bar):
+    a = plt.subplot(122)
+    x = []
+    height = []
+    for i in bar:
+        x.append(i)
+        height.append(bar[i])
+    plt.bar(x, height)
+    plt.xlabel('% Share / View')
+    plt.title('% Share vs View for each content seeded')
+    plt.ylabel('Simulation count')
+    plt.xlim([0, 100])
     plt.show()

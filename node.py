@@ -8,6 +8,7 @@ class Node:
         self.interest = Interest()
         self.neighbors = neighbors
         self.content = {}
+        self.seen = {}
 
     def seed_content(self, content):
         self.share(content, 0)
@@ -28,3 +29,6 @@ class Node:
 
     def __eq__(self, other):
         return len(self.neighbors) == len(other.neighbors)
+
+    def impression(self, content):
+        self.seen[content.uuid] = True
